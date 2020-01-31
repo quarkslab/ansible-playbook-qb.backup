@@ -1,0 +1,14 @@
+#-*-yaml-*-
+
+---
+
+# Cron time at which backups are launched
+backup_srv__cron_minute: '0'
+backup_srv__cron_hour: '0'
+backup_srv__cron_day: "*"
+backup_srv__cron_month: "*"
+backup_srv__cron_weekday: "*"
+
+backup_srv__mail_host: smtpserver.example.test
+backup_srv__mail_to_addrs:
+  - backup@example.test

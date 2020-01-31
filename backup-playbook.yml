@@ -1,0 +1,36 @@
+---
+
+- name: Apply configuration for FreeNAS backup server jail
+  hosts: backup_jail[0] # Only one host is supposed to be in this group, we enforce this here
+  # `become` is not needed: we will already be root in the jail
+  tags:
+    - backup_jail
+  roles:
+    - qb.backup_server
+  # environment:
+    # http_proxy: proxy.here.if.needed
+    # https_proxy: proxy.here.if.needed
+
+- name: Apply backup configuration for backuped clients
+  hosts: backuped
+  become: yes
+  tags:
+    - backuped
+  roles:
+    - qb.backup
+  # environment:
+    # http_proxy: proxy.here.if.needed
+    # https_proxy: proxy.here.if.needed
+  # The `post_tasks` should only be executed once, after we configured all
+  # backup clients.
+  post_tasks:
+    - name: Generate backup hosts list file for group backuped (run once)
+      delegate_to: "{{ item }}"
+      run_once: true
+      become: false # Not needed, we are directly root in the jail
+      template:
+        src: ./templates/backup/backuped.yml.j2
+        # We maintain one hosts list file per inventory, in case we are dealing with multiple inventories
+        dest: "{{ backup_srv__host_config_dir }}/{{ inventory_file | d('no_inventory') | basename }}.yml"
+      loop:
+        - "{{ groups['backup_jail'][0] }}" # Workaround to reference the delegate_to host based on its group

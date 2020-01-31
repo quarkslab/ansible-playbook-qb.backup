@@ -1,0 +1,9 @@
+[submodule "connection_plugins/ansible-sshjail"]
+	path = connection_plugins/ansible-sshjail
+	url = https://github.com/austinhyde/ansible-sshjail.git
+[submodule "roles/qb.backup"]
+	path = roles/qb.backup
+	url = https://github.com/quarkslab/ansible-role-qb.backup
+[submodule "roles/qb.backup_server"]
+	path = roles/qb.backup_server
+	url = https://github.com/quarkslab/ansible-role-qb.backup_server

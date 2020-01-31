@@ -1,0 +1,17 @@
+#-*-yaml-*-
+
+---
+
+# Values common to qb.backup and qb.backup_server
+backup_srv__backup_user: backup
+backup_srv__backup_dest_dir: /mnt/backup
+backup_srv__host_config_dir: /etc/backup/host
+# Server SSH key, checked by qb.backup_server and used by qb.backup
+# NOTE: If you modify backup_clt__srv_ssh_pubkey, add the previous value to
+# backup_clt__old_srv_ssh_pubkeys and run the qb.backup role on the whole
+# backuped group
+backup_clt__srv_ssh_pubkey: ''
+backup_clt__old_srv_ssh_pubkeys: []
+  # - ssh-ed25519 key1
+  # - ssh-ed25519 key2
+  # - etc.

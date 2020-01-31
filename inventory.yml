@@ -1,0 +1,25 @@
+---
+
+all:
+  children:
+    backup_jail: # [backup_jail] group: a single FreeNAS jail serving as the backup server
+      hosts:
+        jail.example.test: # This has no impact on the connection but it will be used as the mail server address of the jail
+          ansible_connection: sshjail # Use the custom sshjail connector (present in a submodule)
+          # We execute commands on the jail directly through our SSH connection
+          # to FreeNAS server as root. We do not SSH directly into the jail.
+          # To get the jail hostname, SSH to the FreeNAS server and type `jls`.
+          # For more information, see https://github.com/austinhyde/ansible-sshjail#usage
+          ansible_host: jail-Hostname@FreeNAS-server-IP
+          ansible_user: root # We connect to the FreeNAS server using a SSH key present in root's authorized_keys
+          ansible_port: 22 # SSH port of the FreeNAS server
+          # Note: the Ansible role that setup the jail defaults to installing Python 3.7.
+          ansible_python_interpreter: /usr/local/bin/python3.7 # The path to the Python executable in the jail.
+    backuped: # [backuped] group: all the servers that need to be backuped
+      hosts:
+        host1.example.test: # Address of the server
+          ansible_port: 22 # SSH port of the server
+        host2.example.test:
+          ansible_port: 22222
+          ansible_user: root
+        # etc.

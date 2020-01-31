@@ -1,0 +1,10 @@
+---
+
+# {{ ansible_managed }}
+
+{% for host in groups['backuped'] %}
+- hostname: {{ host }}
+{%   if hostvars[host]['ansible_port'] is defined %}
+  port: {{ hostvars[host]['ansible_port'] }}
+{%   endif %}
+{% endfor %}
