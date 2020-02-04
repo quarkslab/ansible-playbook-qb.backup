@@ -10,6 +10,9 @@ It serves as an example of how to use Ansible roles
 [qb.backup](https://github.com/quarkslab/ansible-role-qb.backup) and
 [qb.backup_server](https://github.com/quarkslab/ansible-role-qb.backup_server).
 
+You can find [here](https://fosdem.org/2020/schedule/event/borg/) a video of our
+talk at FOSDEM'20 presenting how qb.backup works.
+
 ## Requirements
 
 ### For the Ansible controller
